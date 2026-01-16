@@ -19,7 +19,7 @@ const Index = () => {
 
   const handleDownloadPDF = async () => {
     setIsGeneratingPDF(true);
-    toast.loading("Gerando PDF profissional...", { duration: 2000 });
+    toast.loading("Gerando PDF...", { duration: 1500 });
 
     try {
       const pdf = new jsPDF({
@@ -29,176 +29,186 @@ const Index = () => {
       });
 
       const pageWidth = 210;
-      const margin = 15;
+      const margin = 12;
       const contentWidth = pageWidth - (margin * 2);
       let y = 0;
 
-      // Header gradient
+      // Header
       pdf.setFillColor(15, 23, 42);
-      pdf.rect(0, 0, pageWidth, 50, 'F');
-      
-      // Accent line
+      pdf.rect(0, 0, pageWidth, 35, 'F');
       pdf.setFillColor(34, 197, 94);
-      pdf.rect(0, 50, pageWidth, 3, 'F');
+      pdf.rect(0, 35, pageWidth, 2, 'F');
 
-      // Title
-      pdf.setFontSize(24);
+      pdf.setFontSize(18);
       pdf.setTextColor(255, 255, 255);
-      pdf.text('PROPOSTA COMERCIAL', pageWidth / 2, 22, { align: 'center' });
-      
-      pdf.setFontSize(14);
-      pdf.setTextColor(148, 163, 184);
-      pdf.text('Automação Inteligente para WhatsApp', pageWidth / 2, 35, { align: 'center' });
-
-      y = 65;
-
-      // Investment Section
-      pdf.setFillColor(240, 253, 244);
-      pdf.roundedRect(margin, y, contentWidth, 55, 4, 4, 'F');
-      pdf.setDrawColor(34, 197, 94);
-      pdf.setLineWidth(1);
-      pdf.roundedRect(margin, y, contentWidth, 55, 4, 4, 'S');
-
-      pdf.setFontSize(16);
-      pdf.setTextColor(22, 101, 52);
-      pdf.text('INVESTIMENTO', margin + 10, y + 15);
-
-      // Main price
-      pdf.setFontSize(28);
-      pdf.setTextColor(15, 23, 42);
-      pdf.text('R$ 2.500,00', margin + 10, y + 35);
-      pdf.setFontSize(12);
-      pdf.setTextColor(100, 116, 139);
-      pdf.text('em 6x sem juros no cartão', margin + 85, y + 35);
-
-      // PIX price
-      pdf.setFillColor(34, 197, 94);
-      pdf.roundedRect(margin + 10, y + 42, 80, 10, 2, 2, 'F');
+      pdf.text('PROPOSTA COMERCIAL', pageWidth / 2, 15, { align: 'center' });
       pdf.setFontSize(11);
-      pdf.setTextColor(255, 255, 255);
-      pdf.text('PIX: R$ 2.200,00 (economize R$ 300)', margin + 15, y + 49);
+      pdf.setTextColor(148, 163, 184);
+      pdf.text('Automação Inteligente para WhatsApp', pageWidth / 2, 25, { align: 'center' });
 
-      y += 65;
+      y = 45;
 
-      // What's included
-      pdf.setFontSize(14);
+      // Investment Box
+      pdf.setFillColor(240, 253, 244);
+      pdf.roundedRect(margin, y, contentWidth, 38, 3, 3, 'F');
+      pdf.setDrawColor(34, 197, 94);
+      pdf.setLineWidth(0.8);
+      pdf.roundedRect(margin, y, contentWidth, 38, 3, 3, 'S');
+
+      pdf.setFontSize(12);
+      pdf.setTextColor(22, 101, 52);
+      pdf.text('INVESTIMENTO', margin + 8, y + 10);
+
+      // Prices side by side
+      pdf.setFontSize(11);
       pdf.setTextColor(15, 23, 42);
-      pdf.text('O QUE ESTÁ INCLUÍDO', margin, y + 5);
+      pdf.text('Parcelado:', margin + 8, y + 20);
+      pdf.setFontSize(16);
+      pdf.text('R$ 2.500,00', margin + 8, y + 28);
+      pdf.setFontSize(9);
+      pdf.setTextColor(100, 116, 139);
+      pdf.text('6x sem juros', margin + 8, y + 34);
 
-      y += 12;
+      // PIX
+      pdf.setFontSize(11);
+      pdf.setTextColor(22, 101, 52);
+      pdf.text('PIX:', margin + 70, y + 20);
+      pdf.setFontSize(16);
+      pdf.setTextColor(34, 197, 94);
+      pdf.text('R$ 2.200,00', margin + 70, y + 28);
+      pdf.setFontSize(9);
+      pdf.text('Economize R$ 300!', margin + 70, y + 34);
+
+      // Badge
+      pdf.setFillColor(34, 197, 94);
+      pdf.roundedRect(margin + 130, y + 8, 40, 12, 2, 2, 'F');
+      pdf.setFontSize(8);
+      pdf.setTextColor(255, 255, 255);
+      pdf.text('2-3 dias úteis', margin + 135, y + 16);
+
+      y += 45;
+
+      // Included
+      pdf.setFontSize(11);
+      pdf.setTextColor(15, 23, 42);
+      pdf.text('O QUE ESTÁ INCLUÍDO:', margin, y);
+      y += 6;
 
       const includes = [
         'Configuração para 2 números de WhatsApp',
         '5 dias de suporte e acompanhamento',
         'Treinamento completo do sistema',
-        'Esclarecimento de dúvidas',
         'Implementação rápida (2 a 3 dias úteis)'
       ];
 
-      pdf.setFontSize(10);
+      pdf.setFontSize(9);
       includes.forEach((item, idx) => {
         pdf.setTextColor(34, 197, 94);
-        pdf.text('✓', margin + 5, y + (idx * 7));
+        pdf.text('✓', margin + 3, y + (idx * 5));
         pdf.setTextColor(71, 85, 105);
-        pdf.text(item, margin + 12, y + (idx * 7));
+        pdf.text(item, margin + 9, y + (idx * 5));
       });
 
-      y += 45;
+      y += 26;
 
-      // Monthly costs section
+      // Monthly Costs Box
       pdf.setFillColor(239, 246, 255);
-      pdf.roundedRect(margin, y, contentWidth, 45, 4, 4, 'F');
+      pdf.roundedRect(margin, y, contentWidth, 32, 3, 3, 'F');
       pdf.setDrawColor(59, 130, 246);
       pdf.setLineWidth(0.5);
-      pdf.roundedRect(margin, y, contentWidth, 45, 4, 4, 'S');
+      pdf.roundedRect(margin, y, contentWidth, 32, 3, 3, 'S');
 
-      pdf.setFontSize(14);
+      pdf.setFontSize(11);
       pdf.setTextColor(30, 64, 175);
-      pdf.text('CUSTOS MENSAIS / ANUAIS', margin + 10, y + 12);
+      pdf.text('CUSTOS MENSAIS / ANUAIS', margin + 8, y + 8);
 
-      pdf.setFontSize(10);
-      pdf.setTextColor(71, 85, 105);
-
+      pdf.setFontSize(8);
       const costs = [
-        { label: 'NotificaMais (plataforma)', value: 'R$ 29,90/mês' },
-        { label: 'VPS Hostinger (N8N)', value: 'R$ 451,00/ano (link de indicação)' },
-        { label: 'OpenAI (IA)', value: '$10 USD inicial (recarga conforme uso - consumo baixíssimo)' }
+        'NotificaMais: R$ 29,90/mês',
+        'VPS Hostinger (N8N): R$ 451,00/ano',
+        'OpenAI: $10 USD inicial (recarga conforme uso baixíssimo)'
       ];
 
       costs.forEach((cost, idx) => {
         pdf.setTextColor(59, 130, 246);
-        pdf.text('•', margin + 8, y + 22 + (idx * 7));
+        pdf.text('•', margin + 6, y + 15 + (idx * 5));
         pdf.setTextColor(51, 65, 85);
-        pdf.text(`${cost.label}:`, margin + 13, y + 22 + (idx * 7));
-        pdf.setTextColor(15, 23, 42);
-        pdf.text(cost.value, margin + 60, y + 22 + (idx * 7));
-      });
-
-      y += 55;
-
-      // Optional support
-      pdf.setFillColor(254, 249, 195);
-      pdf.roundedRect(margin, y, contentWidth, 30, 4, 4, 'F');
-      pdf.setDrawColor(234, 179, 8);
-      pdf.setLineWidth(0.5);
-      pdf.roundedRect(margin, y, contentWidth, 30, 4, 4, 'S');
-
-      pdf.setFontSize(12);
-      pdf.setTextColor(133, 77, 14);
-      pdf.text('SUPORTE OPCIONAL (após os 5 dias iniciais)', margin + 10, y + 12);
-
-      pdf.setFontSize(10);
-      pdf.setTextColor(113, 63, 18);
-      pdf.text('• Suporte mensal: R$ 500,00/mês', margin + 10, y + 22);
-      pdf.text('• Suporte avulso: R$ 150,00/hora', margin + 100, y + 22);
-
-      y += 40;
-
-      // Benefits
-      pdf.setFontSize(14);
-      pdf.setTextColor(15, 23, 42);
-      pdf.text('BENEFÍCIOS', margin, y + 5);
-
-      y += 12;
-
-      const benefits = [
-        'Economia significativa com atendimento automatizado',
-        'Alta qualidade e desempenho da IA',
-        'Atendimento 24 horas, 7 dias por semana',
-        'Redução de erros e tempo de resposta'
-      ];
-
-      pdf.setFontSize(10);
-      benefits.forEach((item, idx) => {
-        pdf.setTextColor(34, 197, 94);
-        pdf.text('★', margin + 5, y + (idx * 7));
-        pdf.setTextColor(71, 85, 105);
-        pdf.text(item, margin + 12, y + (idx * 7));
+        pdf.text(cost, margin + 10, y + 15 + (idx * 5));
       });
 
       y += 38;
+
+      // Optional Support Box
+      pdf.setFillColor(254, 249, 195);
+      pdf.roundedRect(margin, y, contentWidth, 20, 3, 3, 'F');
+      pdf.setDrawColor(234, 179, 8);
+      pdf.setLineWidth(0.5);
+      pdf.roundedRect(margin, y, contentWidth, 20, 3, 3, 'S');
+
+      pdf.setFontSize(10);
+      pdf.setTextColor(133, 77, 14);
+      pdf.text('SUPORTE OPCIONAL (após 5 dias)', margin + 8, y + 8);
+
+      pdf.setFontSize(9);
+      pdf.setTextColor(113, 63, 18);
+      pdf.text('Mensal: R$ 500,00/mês', margin + 8, y + 15);
+      pdf.text('Avulso: R$ 150,00/hora', margin + 90, y + 15);
+
+      y += 26;
+
+      // Benefits
+      pdf.setFontSize(11);
+      pdf.setTextColor(15, 23, 42);
+      pdf.text('BENEFÍCIOS:', margin, y);
+      y += 6;
+
+      const benefits = [
+        'Economia com atendimento automatizado',
+        'Alta qualidade e desempenho da IA',
+        'Atendimento 24h, 7 dias por semana',
+        'Dados protegidos e sistema confiável'
+      ];
+
+      pdf.setFontSize(9);
+      benefits.forEach((b, idx) => {
+        pdf.setTextColor(34, 197, 94);
+        pdf.text('★', margin + 3, y + (idx * 5));
+        pdf.setTextColor(71, 85, 105);
+        pdf.text(b, margin + 9, y + (idx * 5));
+      });
+
+      y += 26;
+
+      // CTA Box
+      pdf.setFillColor(34, 197, 94);
+      pdf.roundedRect(margin, y, contentWidth, 18, 3, 3, 'F');
+      pdf.setFontSize(11);
+      pdf.setTextColor(255, 255, 255);
+      pdf.text('Pronto para transformar seu atendimento?', pageWidth / 2, y + 8, { align: 'center' });
+      pdf.setFontSize(9);
+      pdf.text('Entre em contato agora e comece em até 3 dias úteis!', pageWidth / 2, y + 14, { align: 'center' });
 
       // Footer
       pdf.setFillColor(15, 23, 42);
       pdf.rect(0, 270, pageWidth, 27, 'F');
 
-      pdf.setFontSize(14);
+      pdf.setFontSize(12);
       pdf.setTextColor(255, 255, 255);
-      pdf.text('Wanderson Silveira', pageWidth / 2, 280, { align: 'center' });
+      pdf.text('Wanderson Silveira', pageWidth / 2, 278, { align: 'center' });
       
-      pdf.setFontSize(10);
+      pdf.setFontSize(9);
       pdf.setTextColor(148, 163, 184);
-      pdf.text('Especialista em Automação e Inteligência Artificial', pageWidth / 2, 287, { align: 'center' });
+      pdf.text('Especialista em Automação e Inteligência Artificial', pageWidth / 2, 284, { align: 'center' });
       
       pdf.setTextColor(34, 197, 94);
-      pdf.text('WhatsApp: (11) 91460-0243  •  contato@agzap.com.br', pageWidth / 2, 294, { align: 'center' });
+      pdf.text('WhatsApp: (11) 91460-0243  •  contato@agzap.com.br', pageWidth / 2, 291, { align: 'center' });
 
-      pdf.save('Proposta_IA_WhatsApp_WandersonSilveira.pdf');
+      pdf.save('Proposta_IA_WhatsApp.pdf');
 
-      toast.success("PDF gerado com sucesso!", { duration: 3000, icon: '📄' });
+      toast.success("PDF gerado!", { duration: 2000, icon: '📄' });
     } catch (error) {
       console.error('Erro ao gerar PDF:', error);
-      toast.error("Erro ao gerar PDF. Tente novamente.");
+      toast.error("Erro ao gerar PDF.");
     } finally {
       setIsGeneratingPDF(false);
     }
