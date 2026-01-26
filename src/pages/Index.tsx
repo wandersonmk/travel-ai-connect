@@ -2,15 +2,14 @@ import { useState } from "react";
 import { 
   FaWhatsapp, FaRobot, FaCheckCircle, FaCheck,
   FaEnvelope, FaPhone, FaDownload, FaStar, FaRocket,
-  FaShieldAlt, FaBolt, FaClock, FaHeadset, FaGraduationCap,
-  FaServer, FaCreditCard, FaCalendarAlt, FaUsers, FaHeart
+  FaShieldAlt, FaBolt, FaClock, FaHeadset, FaServer,
+  FaImage, FaDatabase, FaBrain, FaCalendarAlt
 } from "react-icons/fa";
 import { 
   MdAutoAwesome, MdSupport, MdSpeed, MdSavings
 } from "react-icons/md";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import toast, { Toaster } from 'react-hot-toast';
 import jsPDF from "jspdf";
 
@@ -35,175 +34,191 @@ const Index = () => {
 
       // Header
       pdf.setFillColor(15, 23, 42);
-      pdf.rect(0, 0, pageWidth, 35, 'F');
+      pdf.rect(0, 0, pageWidth, 32, 'F');
       pdf.setFillColor(34, 197, 94);
-      pdf.rect(0, 35, pageWidth, 2, 'F');
+      pdf.rect(0, 32, pageWidth, 2, 'F');
 
-      pdf.setFontSize(18);
+      pdf.setFontSize(16);
       pdf.setTextColor(255, 255, 255);
-      pdf.text('PROPOSTA COMERCIAL', pageWidth / 2, 15, { align: 'center' });
-      pdf.setFontSize(11);
+      pdf.text('PROPOSTA COMERCIAL', pageWidth / 2, 14, { align: 'center' });
+      pdf.setFontSize(10);
       pdf.setTextColor(148, 163, 184);
-      pdf.text('Automação Inteligente para WhatsApp', pageWidth / 2, 25, { align: 'center' });
+      pdf.text('Reconhecimento de Imagem via IA para WhatsApp', pageWidth / 2, 23, { align: 'center' });
 
-      y = 45;
+      y = 40;
+
+      // Escopo do Serviço
+      pdf.setFontSize(10);
+      pdf.setTextColor(15, 23, 42);
+      pdf.setFont(undefined, 'bold');
+      pdf.text('ESCOPO DO SERVIÇO', margin, y);
+      pdf.setFont(undefined, 'normal');
+      y += 5;
+
+      pdf.setFontSize(8);
+      pdf.setTextColor(71, 85, 105);
+      const escopo = [
+        'Integração para reconhecimento de imagem via API do ChatGuru com n8n.',
+        '1. Paciente envia imagem pelo WhatsApp',
+        '2. IA processa e identifica o plano de saúde',
+        '3. Consulta na base de dados da clínica',
+        '4. Resposta automática ao paciente'
+      ];
+      escopo.forEach((line, idx) => {
+        pdf.text(line, margin, y + (idx * 4));
+      });
+
+      y += 24;
 
       // Investment Box
       pdf.setFillColor(240, 253, 244);
-      pdf.roundedRect(margin, y, contentWidth, 38, 3, 3, 'F');
+      pdf.roundedRect(margin, y, contentWidth, 32, 3, 3, 'F');
       pdf.setDrawColor(34, 197, 94);
       pdf.setLineWidth(0.8);
-      pdf.roundedRect(margin, y, contentWidth, 38, 3, 3, 'S');
+      pdf.roundedRect(margin, y, contentWidth, 32, 3, 3, 'S');
 
-      pdf.setFontSize(12);
+      pdf.setFontSize(10);
       pdf.setTextColor(22, 101, 52);
-      pdf.text('INVESTIMENTO', margin + 8, y + 10);
+      pdf.setFont(undefined, 'bold');
+      pdf.text('INVESTIMENTO', margin + 8, y + 8);
+      pdf.setFont(undefined, 'normal');
 
       // Prices side by side
-      pdf.setFontSize(11);
-      pdf.setTextColor(15, 23, 42);
-      pdf.text('Parcelado:', margin + 8, y + 20);
-      pdf.setFontSize(16);
-      pdf.text('R$ 2.500,00', margin + 8, y + 28);
       pdf.setFontSize(9);
+      pdf.setTextColor(15, 23, 42);
+      pdf.text('Parcelado:', margin + 8, y + 16);
+      pdf.setFontSize(14);
+      pdf.text('R$ 2.800,00', margin + 8, y + 23);
+      pdf.setFontSize(8);
       pdf.setTextColor(100, 116, 139);
-      pdf.text('6x sem juros', margin + 8, y + 34);
+      pdf.text('até 10x sem juros', margin + 8, y + 28);
 
       // PIX
-      pdf.setFontSize(11);
-      pdf.setTextColor(22, 101, 52);
-      pdf.text('PIX:', margin + 70, y + 20);
-      pdf.setFontSize(16);
-      pdf.setTextColor(34, 197, 94);
-      pdf.text('R$ 2.200,00', margin + 70, y + 28);
       pdf.setFontSize(9);
-      pdf.text('Economize R$ 300!', margin + 70, y + 34);
+      pdf.setTextColor(22, 101, 52);
+      pdf.text('PIX:', margin + 70, y + 16);
+      pdf.setFontSize(14);
+      pdf.setTextColor(34, 197, 94);
+      pdf.text('R$ 2.500,00', margin + 70, y + 23);
+      pdf.setFontSize(8);
+      pdf.text('Economize R$ 300!', margin + 70, y + 28);
 
       // Badge
       pdf.setFillColor(34, 197, 94);
-      pdf.roundedRect(margin + 130, y + 8, 40, 12, 2, 2, 'F');
-      pdf.setFontSize(8);
+      pdf.roundedRect(margin + 130, y + 8, 40, 10, 2, 2, 'F');
+      pdf.setFontSize(7);
       pdf.setTextColor(255, 255, 255);
-      pdf.text('2-3 dias úteis', margin + 135, y + 16);
-
-      y += 45;
-
-      // Included
-      pdf.setFontSize(11);
-      pdf.setTextColor(15, 23, 42);
-      pdf.text('O QUE ESTÁ INCLUÍDO:', margin, y);
-      y += 6;
-
-      const includes = [
-        'Configuração para 2 números de WhatsApp',
-        '5 dias de suporte e acompanhamento',
-        'Treinamento completo do sistema',
-        'Implementação rápida (2 a 3 dias úteis)'
-      ];
-
-      pdf.setFontSize(9);
-      includes.forEach((item, idx) => {
-        pdf.setTextColor(34, 197, 94);
-        pdf.text('✓', margin + 3, y + (idx * 5));
-        pdf.setTextColor(71, 85, 105);
-        pdf.text(item, margin + 9, y + (idx * 5));
-      });
-
-      y += 26;
-
-      // Monthly Costs Box
-      pdf.setFillColor(239, 246, 255);
-      pdf.roundedRect(margin, y, contentWidth, 32, 3, 3, 'F');
-      pdf.setDrawColor(59, 130, 246);
-      pdf.setLineWidth(0.5);
-      pdf.roundedRect(margin, y, contentWidth, 32, 3, 3, 'S');
-
-      pdf.setFontSize(11);
-      pdf.setTextColor(30, 64, 175);
-      pdf.text('CUSTOS MENSAIS / ANUAIS', margin + 8, y + 8);
-
-      pdf.setFontSize(8);
-      const costs = [
-        'NotificaMais: R$ 29,90/mês',
-        'VPS Hostinger (N8N): R$ 451,00/ano',
-        'OpenAI: $10 USD inicial (recarga conforme uso baixíssimo)'
-      ];
-
-      costs.forEach((cost, idx) => {
-        pdf.setTextColor(59, 130, 246);
-        pdf.text('•', margin + 6, y + 15 + (idx * 5));
-        pdf.setTextColor(51, 65, 85);
-        pdf.text(cost, margin + 10, y + 15 + (idx * 5));
-      });
+      pdf.text('3-4 dias úteis', margin + 136, y + 14);
 
       y += 38;
 
-      // Optional Support Box
-      pdf.setFillColor(254, 249, 195);
-      pdf.roundedRect(margin, y, contentWidth, 20, 3, 3, 'F');
-      pdf.setDrawColor(234, 179, 8);
+      // Infraestrutura VPS
+      pdf.setFillColor(239, 246, 255);
+      pdf.roundedRect(margin, y, contentWidth, 28, 3, 3, 'F');
+      pdf.setDrawColor(59, 130, 246);
       pdf.setLineWidth(0.5);
-      pdf.roundedRect(margin, y, contentWidth, 20, 3, 3, 'S');
-
-      pdf.setFontSize(10);
-      pdf.setTextColor(133, 77, 14);
-      pdf.text('SUPORTE OPCIONAL (após 5 dias)', margin + 8, y + 8);
+      pdf.roundedRect(margin, y, contentWidth, 28, 3, 3, 'S');
 
       pdf.setFontSize(9);
-      pdf.setTextColor(113, 63, 18);
-      pdf.text('Mensal: R$ 500,00/mês', margin + 8, y + 15);
-      pdf.text('Avulso: R$ 150,00/hora', margin + 90, y + 15);
+      pdf.setTextColor(30, 64, 175);
+      pdf.setFont(undefined, 'bold');
+      pdf.text('INFRAESTRUTURA (VPS / n8n)', margin + 8, y + 7);
+      pdf.setFont(undefined, 'normal');
 
-      y += 26;
-
-      // Benefits
-      pdf.setFontSize(11);
-      pdf.setTextColor(15, 23, 42);
-      pdf.text('BENEFÍCIOS:', margin, y);
-      y += 6;
-
-      const benefits = [
-        'Economia com atendimento automatizado',
-        'Alta qualidade e desempenho da IA',
-        'Atendimento 24h, 7 dias por semana',
-        'Dados protegidos e sistema confiável'
+      pdf.setFontSize(7);
+      const infra = [
+        'Opção 1: VPS própria - R$ 450/ano ou R$ 720 (2 anos) - Hostinger',
+        'Opção 2: Servidor n8n Agzap - R$ 149,90/mês (pronto e monitorado)'
       ];
 
-      pdf.setFontSize(9);
-      benefits.forEach((b, idx) => {
-        pdf.setTextColor(34, 197, 94);
-        pdf.text('★', margin + 3, y + (idx * 5));
-        pdf.setTextColor(71, 85, 105);
-        pdf.text(b, margin + 9, y + (idx * 5));
+      infra.forEach((item, idx) => {
+        pdf.setTextColor(59, 130, 246);
+        pdf.text('•', margin + 6, y + 13 + (idx * 5));
+        pdf.setTextColor(51, 65, 85);
+        pdf.text(item, margin + 10, y + 13 + (idx * 5));
       });
 
-      y += 26;
+      y += 32;
+
+      // Suporte Opcional
+      pdf.setFillColor(254, 249, 195);
+      pdf.roundedRect(margin, y, contentWidth, 18, 3, 3, 'F');
+      pdf.setDrawColor(234, 179, 8);
+      pdf.setLineWidth(0.5);
+      pdf.roundedRect(margin, y, contentWidth, 18, 3, 3, 'S');
+
+      pdf.setFontSize(9);
+      pdf.setTextColor(133, 77, 14);
+      pdf.setFont(undefined, 'bold');
+      pdf.text('SUPORTE OPCIONAL', margin + 8, y + 7);
+      pdf.setFont(undefined, 'normal');
+
+      pdf.setFontSize(8);
+      pdf.setTextColor(113, 63, 18);
+      pdf.text('Mensal: R$ 600,00/mês', margin + 8, y + 14);
+      pdf.text('Sob demanda: R$ 180,00/hora', margin + 90, y + 14);
+
+      y += 24;
+
+      // Fluxo de funcionamento
+      pdf.setFontSize(9);
+      pdf.setTextColor(15, 23, 42);
+      pdf.setFont(undefined, 'bold');
+      pdf.text('FLUXO DE FUNCIONAMENTO:', margin, y);
+      pdf.setFont(undefined, 'normal');
+      y += 5;
+
+      const fluxo = [
+        '1. Paciente envia imagem do cartão/documento',
+        '2. IA identifica o plano de saúde automaticamente',
+        '3. Sistema consulta base de dados da clínica',
+        '4. Resposta enviada via WhatsApp em segundos'
+      ];
+
+      pdf.setFontSize(8);
+      fluxo.forEach((item, idx) => {
+        pdf.setTextColor(34, 197, 94);
+        pdf.text('✓', margin + 3, y + (idx * 4.5));
+        pdf.setTextColor(71, 85, 105);
+        pdf.text(item, margin + 9, y + (idx * 4.5));
+      });
+
+      y += 22;
+
+      // Validade
+      pdf.setFillColor(254, 226, 226);
+      pdf.roundedRect(margin, y, contentWidth, 12, 2, 2, 'F');
+      pdf.setFontSize(8);
+      pdf.setTextColor(153, 27, 27);
+      pdf.text('⚠ Proposta válida por 2 dias a contar da data de envio', pageWidth / 2, y + 7, { align: 'center' });
+
+      y += 18;
 
       // CTA Box
       pdf.setFillColor(34, 197, 94);
-      pdf.roundedRect(margin, y, contentWidth, 18, 3, 3, 'F');
-      pdf.setFontSize(11);
+      pdf.roundedRect(margin, y, contentWidth, 16, 3, 3, 'F');
+      pdf.setFontSize(10);
       pdf.setTextColor(255, 255, 255);
-      pdf.text('Pronto para transformar seu atendimento?', pageWidth / 2, y + 8, { align: 'center' });
-      pdf.setFontSize(9);
-      pdf.text('Entre em contato agora e comece em até 3 dias úteis!', pageWidth / 2, y + 14, { align: 'center' });
+      pdf.text('Pronto para automatizar seu atendimento?', pageWidth / 2, y + 7, { align: 'center' });
+      pdf.setFontSize(8);
+      pdf.text('Entre em contato e comece em até 4 dias úteis!', pageWidth / 2, y + 12, { align: 'center' });
 
       // Footer
       pdf.setFillColor(15, 23, 42);
       pdf.rect(0, 270, pageWidth, 27, 'F');
 
-      pdf.setFontSize(12);
+      pdf.setFontSize(11);
       pdf.setTextColor(255, 255, 255);
       pdf.text('Wanderson Silveira', pageWidth / 2, 278, { align: 'center' });
       
-      pdf.setFontSize(9);
+      pdf.setFontSize(8);
       pdf.setTextColor(148, 163, 184);
-      pdf.text('Especialista em Automação e Inteligência Artificial', pageWidth / 2, 284, { align: 'center' });
+      pdf.text('Agzap Systems - Automação e Inteligência Artificial', pageWidth / 2, 284, { align: 'center' });
       
       pdf.setTextColor(34, 197, 94);
-      pdf.text('WhatsApp: (11) 91460-0243  •  contato@agzap.com.br', pageWidth / 2, 291, { align: 'center' });
+      pdf.text('WhatsApp: (11) 91460-0243  •  contato@agzap.com.br', pageWidth / 2, 290, { align: 'center' });
 
-      pdf.save('Proposta_IA_WhatsApp.pdf');
+      pdf.save('Proposta_Reconhecimento_Imagem_IA.pdf');
 
       toast.success("PDF gerado!", { duration: 2000, icon: '📄' });
     } catch (error) {
@@ -224,21 +239,50 @@ const Index = () => {
           {/* Header Compacto */}
           <header className="text-center mb-6">
             <div className="inline-flex items-center gap-1.5 bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-medium mb-3">
-              <FaRocket className="w-3 h-3" />
-              Proposta Especial
+              <FaBrain className="w-3 h-3" />
+              Proposta Comercial
             </div>
             
             <h1 className="text-2xl font-bold text-slate-900 mb-2">
-              Automação Inteligente
+              Reconhecimento de Imagem
               <span className="block bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent">
-                para WhatsApp
+                via IA para WhatsApp
               </span>
             </h1>
             
             <p className="text-sm text-slate-600">
-              Economize tempo e aumente a qualidade do atendimento com IA
+              Identificação automática de planos de saúde com Inteligência Artificial
             </p>
           </header>
+
+          {/* Escopo do Serviço */}
+          <Card className="mb-4 border border-slate-200 bg-white shadow-md">
+            <CardContent className="p-4">
+              <h3 className="text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
+                <FaRobot className="w-4 h-4 text-emerald-600" />
+                Escopo do Serviço
+              </h3>
+              <p className="text-xs text-slate-600 mb-3">
+                Integração para reconhecimento de imagem via API do ChatGuru, utilizando o n8n como orquestrador do fluxo.
+              </p>
+              <div className="space-y-2">
+                {[
+                  { icon: FaImage, text: "Paciente envia imagem pelo WhatsApp" },
+                  { icon: FaBrain, text: "IA processa e identifica o plano de saúde" },
+                  { icon: FaDatabase, text: "Consulta na base de dados da clínica" },
+                  { icon: FaWhatsapp, text: "Resposta automática ao paciente" }
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-center gap-2 bg-slate-50 rounded-lg p-2">
+                    <div className="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600">
+                      <span className="text-xs font-bold">{idx + 1}</span>
+                    </div>
+                    <item.icon className="w-3.5 h-3.5 text-slate-500" />
+                    <span className="text-xs text-slate-700">{item.text}</span>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
 
           {/* Investment Card Compacto */}
           <Card className="mb-4 overflow-hidden border-0 shadow-lg bg-white">
@@ -246,11 +290,11 @@ const Index = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <h2 className="text-white text-base font-bold">Investimento</h2>
-                  <p className="text-slate-300 text-xs">Sistema completo de IA</p>
+                  <p className="text-slate-300 text-xs">Implementação completa</p>
                 </div>
                 <Badge className="bg-emerald-500 text-white text-xs px-2 py-1">
-                  <FaBolt className="w-2.5 h-2.5 mr-1" />
-                  2-3 dias
+                  <FaClock className="w-2.5 h-2.5 mr-1" />
+                  3-4 dias
                 </Badge>
               </div>
             </div>
@@ -260,8 +304,8 @@ const Index = () => {
               <div className="grid grid-cols-2 gap-3 mb-4">
                 <div className="bg-slate-50 rounded-xl p-3 border border-slate-200">
                   <div className="text-xs text-slate-500 uppercase mb-1">Parcelado</div>
-                  <div className="text-xl font-bold text-slate-900">R$ 2.500</div>
-                  <p className="text-xs text-slate-600">6x sem juros</p>
+                  <div className="text-xl font-bold text-slate-900">R$ 2.800</div>
+                  <p className="text-xs text-slate-600">até 10x sem juros</p>
                 </div>
 
                 <div className="bg-emerald-50 rounded-xl p-3 border-2 border-emerald-300 relative">
@@ -269,60 +313,64 @@ const Index = () => {
                     -R$300
                   </Badge>
                   <div className="text-xs text-emerald-600 uppercase mb-1">PIX</div>
-                  <div className="text-xl font-bold text-emerald-600">R$ 2.200</div>
+                  <div className="text-xl font-bold text-emerald-600">R$ 2.500</div>
                   <p className="text-xs text-emerald-700">Melhor opção!</p>
                 </div>
               </div>
 
-              {/* Incluído - Lista compacta */}
-              <div className="border-t border-slate-100 pt-3">
-                <h3 className="text-xs font-bold text-slate-900 mb-2 flex items-center gap-1">
-                  <FaCheckCircle className="text-emerald-500 w-3 h-3" />
-                  Incluído:
-                </h3>
-                <div className="grid grid-cols-1 gap-1.5 text-xs">
-                  {[
-                    "Configuração para 2 WhatsApp",
-                    "5 dias de suporte",
-                    "Treinamento completo",
-                    "Implementação rápida"
-                  ].map((item, idx) => (
-                    <div key={idx} className="flex items-center gap-2 text-slate-700">
-                      <FaCheck className="w-2.5 h-2.5 text-emerald-500 shrink-0" />
-                      {item}
+              {/* Prazo */}
+              <div className="bg-blue-50 rounded-lg p-3 border border-blue-100">
+                <p className="text-xs text-slate-600">
+                  <span className="font-semibold text-blue-700">Prazo:</span> 3 a 4 dias úteis, podendo ser concluído antes, desde que não haja imprevistos ou limitações da API.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Infraestrutura VPS / n8n */}
+          <Card className="mb-4 border border-blue-100 bg-blue-50/30 shadow-md">
+            <CardContent className="p-4">
+              <h3 className="text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
+                <FaServer className="w-4 h-4 text-blue-600" />
+                Infraestrutura (VPS / n8n)
+              </h3>
+              <p className="text-xs text-slate-500 mb-3">O cliente deverá optar por uma das opções:</p>
+              
+              <div className="space-y-3">
+                {/* VPS Própria */}
+                <div className="bg-white rounded-lg p-3 border border-slate-200">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-semibold text-slate-900">VPS Própria (Hostinger)</span>
+                    <Badge className="bg-slate-100 text-slate-600 text-[10px]">Você gerencia</Badge>
+                  </div>
+                  <div className="flex gap-3">
+                    <div className="text-center">
+                      <div className="text-sm font-bold text-blue-600">R$ 450</div>
+                      <div className="text-[10px] text-slate-500">/ano</div>
                     </div>
-                  ))}
+                    <div className="text-slate-300">ou</div>
+                    <div className="text-center">
+                      <div className="text-sm font-bold text-blue-600">R$ 720</div>
+                      <div className="text-[10px] text-slate-500">2 anos</div>
+                    </div>
+                  </div>
+                  <p className="text-[10px] text-slate-500 mt-2">Com link de desconto. Pago à Hostinger.</p>
+                </div>
+
+                {/* Servidor Agzap */}
+                <div className="bg-emerald-50 rounded-lg p-3 border-2 border-emerald-200">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-semibold text-slate-900">Servidor n8n Agzap</span>
+                    <Badge className="bg-emerald-500 text-white text-[10px]">Recomendado</Badge>
+                  </div>
+                  <div className="text-lg font-bold text-emerald-600">R$ 149,90<span className="text-xs font-normal text-slate-500">/mês</span></div>
+                  <p className="text-[10px] text-emerald-700 mt-1">✓ Pronto, instalado, monitorado e atualizado</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          {/* Custos Mensais - Compacto */}
-          <Card className="mb-4 border border-blue-100 bg-blue-50/30 shadow-md">
-            <CardContent className="p-4">
-              <h3 className="text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
-                <FaCalendarAlt className="w-4 h-4 text-blue-600" />
-                Custos Mensais / Anuais
-              </h3>
-              <div className="space-y-2">
-                {[
-                  { name: "NotificaMais", price: "R$ 29,90/mês" },
-                  { name: "VPS Hostinger (N8N)", price: "R$ 451,00/ano" },
-                  { name: "OpenAI", price: "$10 USD inicial", note: "consumo baixíssimo" }
-                ].map((item, idx) => (
-                  <div key={idx} className="flex items-center justify-between bg-white rounded-lg p-2.5 border border-slate-100">
-                    <span className="text-xs text-slate-700">{item.name}</span>
-                    <div className="text-right">
-                      <span className="text-xs font-semibold text-slate-900">{item.price}</span>
-                      {item.note && <div className="text-[10px] text-emerald-600">{item.note}</div>}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Suporte Opcional - Compacto */}
+          {/* Suporte Opcional */}
           <Card className="mb-4 border border-amber-200 bg-amber-50/50 shadow-md">
             <CardContent className="p-4">
               <div className="flex items-center justify-between mb-3">
@@ -330,49 +378,36 @@ const Index = () => {
                   <MdSupport className="w-4 h-4 text-amber-600" />
                   Suporte Opcional
                 </h3>
-                <Badge className="bg-amber-100 text-amber-700 text-[10px] px-2 py-0.5">
-                  Após 5 dias
-                </Badge>
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div className="bg-white rounded-lg p-3 border border-amber-200 text-center">
-                  <div className="text-lg font-bold text-amber-600">R$ 500</div>
+                  <div className="text-lg font-bold text-amber-600">R$ 600</div>
                   <div className="text-[10px] text-slate-600">/mês contínuo</div>
                 </div>
                 <div className="bg-white rounded-lg p-3 border border-amber-200 text-center">
-                  <div className="text-lg font-bold text-amber-600">R$ 150</div>
-                  <div className="text-[10px] text-slate-600">/hora avulso</div>
+                  <div className="text-lg font-bold text-amber-600">R$ 180</div>
+                  <div className="text-[10px] text-slate-600">/hora sob demanda</div>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          {/* Benefícios - Grid 2x2 compacto */}
-          <div className="grid grid-cols-2 gap-3 mb-4">
-            {[
-              { icon: MdSavings, title: "Economia", color: "bg-emerald-100 text-emerald-600" },
-              { icon: FaStar, title: "Qualidade", color: "bg-blue-100 text-blue-600" },
-              { icon: FaClock, title: "24/7", color: "bg-purple-100 text-purple-600" },
-              { icon: FaShieldAlt, title: "Segurança", color: "bg-amber-100 text-amber-600" }
-            ].map((b, idx) => (
-              <div key={idx} className="bg-white rounded-xl p-3 shadow-sm border border-slate-100 flex items-center gap-2">
-                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${b.color}`}>
-                  <b.icon className="w-4 h-4" />
-                </div>
-                <span className="text-sm font-medium text-slate-900">{b.title}</span>
-              </div>
-            ))}
+          {/* Validade */}
+          <div className="bg-red-50 border border-red-200 rounded-xl p-3 mb-4 text-center">
+            <p className="text-xs text-red-700 font-medium">
+              ⚠ Esta proposta é válida por <strong>2 dias</strong> a contar da data de envio.
+            </p>
           </div>
 
           {/* CTA Compacto */}
           <Card className="mb-4 overflow-hidden border-0 shadow-lg">
             <div className="bg-gradient-to-r from-emerald-600 to-teal-600 p-4 text-center">
               <h2 className="text-base font-bold text-white mb-2">
-                Pronto para transformar seu atendimento?
+                Pronto para automatizar seu atendimento?
               </h2>
               <div className="flex gap-2 justify-center">
                 <a 
-                  href="https://wa.me/5511914600243?text=Olá!%20Vi%20a%20proposta%20de%20automação%20e%20tenho%20interesse!"
+                  href="https://wa.me/5511914600243?text=Olá!%20Vi%20a%20proposta%20de%20reconhecimento%20de%20imagem%20e%20tenho%20interesse!"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 bg-white text-emerald-600 font-bold py-2 px-4 rounded-lg text-sm hover:bg-emerald-50 transition-all"
@@ -399,7 +434,7 @@ const Index = () => {
               </div>
               <div className="text-left">
                 <h3 className="text-sm font-bold text-slate-900">Wanderson Silveira</h3>
-                <p className="text-[10px] text-slate-500">Especialista em Automação e IA</p>
+                <p className="text-[10px] text-slate-500">Agzap Systems - Automação e IA</p>
               </div>
             </div>
             <div className="flex items-center justify-center gap-3 text-xs">
@@ -415,7 +450,7 @@ const Index = () => {
           </footer>
         </div>
 
-        {/* Floating Download Button - Compacto */}
+        {/* Floating Download Button */}
         <button
           onClick={handleDownloadPDF}
           disabled={isGeneratingPDF}
