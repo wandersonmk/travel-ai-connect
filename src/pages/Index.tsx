@@ -281,6 +281,20 @@ const Index = () => {
                   </div>
                 ))}
               </div>
+
+              {/* Incluso no plano */}
+              <div className="mt-4 bg-emerald-50 rounded-lg p-3 border border-emerald-200">
+                <h4 className="text-xs font-bold text-emerald-800 mb-2 flex items-center gap-1">
+                  <FaCheckCircle className="w-3 h-3" />
+                  Incluso no plano:
+                </h4>
+                <p className="text-xs text-emerald-700">
+                  <strong>3 dias de suporte, acompanhamento e treinamento</strong> sobre a integração realizada.
+                </p>
+                <p className="text-[10px] text-slate-500 mt-1">
+                  * Após este período, será necessário contratar um plano de suporte.
+                </p>
+              </div>
             </CardContent>
           </Card>
 
@@ -368,7 +382,7 @@ const Index = () => {
                   </div>
                   <p className="text-[10px] text-slate-600 mb-2">Deixe a infraestrutura com a Agzap. Servidor pronto, monitorado e sempre atualizado.</p>
                   <div className="text-lg font-bold text-emerald-600">R$ 149,90<span className="text-xs font-normal text-slate-500">/mês</span></div>
-                  <p className="text-[10px] text-emerald-700 mt-1">✓ Sem preocupação com manutenção ou atualizações</p>
+                  <p className="text-[10px] text-emerald-700 mt-1">✓ Sem preocupação com manutenção ou atualizações do n8n</p>
                 </div>
               </div>
             </CardContent>
