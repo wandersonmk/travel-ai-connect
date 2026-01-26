@@ -334,37 +334,41 @@ const Index = () => {
                 <FaServer className="w-4 h-4 text-blue-600" />
                 Infraestrutura (VPS / n8n)
               </h3>
-              <p className="text-xs text-slate-500 mb-3">O cliente deverá optar por uma das opções:</p>
+              <p className="text-xs text-slate-600 mb-3">
+                Escolha como deseja hospedar o n8n para sua automação:
+              </p>
               
               <div className="space-y-3">
                 {/* VPS Própria */}
                 <div className="bg-white rounded-lg p-3 border border-slate-200">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-semibold text-slate-900">VPS Própria (Hostinger)</span>
+                    <span className="text-xs font-semibold text-slate-900">🖥️ Tenha seu próprio n8n</span>
                     <Badge className="bg-slate-100 text-slate-600 text-[10px]">Você gerencia</Badge>
                   </div>
-                  <div className="flex gap-3">
+                  <p className="text-[10px] text-slate-600 mb-2">Assine uma VPS na Hostinger e tenha controle total do seu servidor n8n.</p>
+                  <div className="flex items-center gap-3">
                     <div className="text-center">
                       <div className="text-sm font-bold text-blue-600">R$ 450</div>
                       <div className="text-[10px] text-slate-500">/ano</div>
                     </div>
-                    <div className="text-slate-300">ou</div>
+                    <div className="text-slate-400 text-xs">ou</div>
                     <div className="text-center">
                       <div className="text-sm font-bold text-blue-600">R$ 720</div>
-                      <div className="text-[10px] text-slate-500">2 anos</div>
+                      <div className="text-[10px] text-slate-500">plano 2 anos</div>
                     </div>
                   </div>
-                  <p className="text-[10px] text-slate-500 mt-2">Com link de desconto. Pago à Hostinger.</p>
+                  <p className="text-[10px] text-slate-400 mt-2">* Pago diretamente à Hostinger (com link de desconto)</p>
                 </div>
 
                 {/* Servidor Agzap */}
                 <div className="bg-emerald-50 rounded-lg p-3 border-2 border-emerald-200">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-semibold text-slate-900">Servidor n8n Agzap</span>
+                    <span className="text-xs font-semibold text-slate-900">🚀 Assine conosco</span>
                     <Badge className="bg-emerald-500 text-white text-[10px]">Recomendado</Badge>
                   </div>
+                  <p className="text-[10px] text-slate-600 mb-2">Deixe a infraestrutura com a Agzap. Servidor pronto, monitorado e sempre atualizado.</p>
                   <div className="text-lg font-bold text-emerald-600">R$ 149,90<span className="text-xs font-normal text-slate-500">/mês</span></div>
-                  <p className="text-[10px] text-emerald-700 mt-1">✓ Pronto, instalado, monitorado e atualizado</p>
+                  <p className="text-[10px] text-emerald-700 mt-1">✓ Sem preocupação com manutenção ou atualizações</p>
                 </div>
               </div>
             </CardContent>
