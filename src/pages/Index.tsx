@@ -289,7 +289,7 @@ const Index = () => {
                   Incluso no plano:
                 </h4>
                 <p className="text-xs text-emerald-700">
-                  <strong>3 dias de suporte, acompanhamento e treinamento</strong> sobre a integração realizada.
+                  <strong>5 dias de suporte, acompanhamento e treinamento</strong> sobre a integração realizada.
                 </p>
                 <p className="text-[10px] text-slate-500 mt-1">
                   * Após este período, será necessário contratar um plano de suporte.
